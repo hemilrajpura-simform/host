@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ErrorBoundary from "./ErrorBoundary";
+const RemoteApp = React.lazy(() => import("Remote/App"));
+const Header = React.lazy(() => import("Remote/Header"));
+const Todos = React.lazy(() => import("Remote/Todos"));
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const RemoteWrapper = ({ children }) => (
+  <div>
+    <ErrorBoundary>{children}</ErrorBoundary>
+  </div>
+);
 
-export default App;
+export const App = () => (
+  <div className="app-main">
+    <RemoteWrapper>
+      <Header />
+    </RemoteWrapper>
+
+    <RemoteWrapper>
+      <Todos />   
+    </RemoteWrapper>
+  </div>
+);
+export default App;     
